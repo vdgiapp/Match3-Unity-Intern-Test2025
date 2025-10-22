@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelMoves : LevelCondition
+public class LevelFullQueue : LevelCondition
 {
-    private int m_moves;
+    private int m_maxQueueSize;
+    private int m_queueSize = 0;
 
     private BoardController m_board;
 
@@ -14,24 +15,24 @@ public class LevelMoves : LevelCondition
     {
         base.Setup(value, txt);
 
-        m_moves = (int)value;
+        m_maxQueueSize = (int)value;
 
         m_board = board;
 
-        m_board.OnMoveEvent += OnMove;
+        m_board.OnQueueSizeChanged += OnQueueSizeChange;
 
         UpdateText();
     }
 
-    private void OnMove()
+    private void OnQueueSizeChange(int currentSize)
     {
         if (m_conditionCompleted) return;
 
-        m_moves--;
+        m_queueSize = currentSize;
 
         UpdateText();
 
-        if(m_moves <= 0)
+        if(m_queueSize >= m_maxQueueSize)
         {
             OnConditionComplete();
         }
@@ -39,12 +40,12 @@ public class LevelMoves : LevelCondition
 
     protected override void UpdateText()
     {
-        m_txt.text = string.Format("MOVES:\n{0}", m_moves);
+        m_txt.text = string.Format("SIZE:\n{0}/{1}", m_queueSize, m_maxQueueSize);
     }
 
     protected override void OnDestroy()
     {
-        if (m_board != null) m_board.OnMoveEvent -= OnMove;
+        if (m_board != null) m_board.OnQueueSizeChanged -= OnQueueSizeChange;
 
         base.OnDestroy();
     }

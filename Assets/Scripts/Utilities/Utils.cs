@@ -24,4 +24,14 @@ public class Utils
 
         return result;
     }
+
+    public static void ShuffleList<T>(List<T> list)
+    {
+        int n = list.Count;
+        for (int i = 0; i < n; i++)
+        {
+            int r = i + URandom.Range(0, n - i);
+            (list[r], list[i]) = (list[i], list[r]);
+        }
+    }
 }

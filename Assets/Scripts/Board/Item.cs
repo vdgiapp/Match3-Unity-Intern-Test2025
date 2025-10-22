@@ -7,6 +7,8 @@ using DG.Tweening;
 [Serializable]
 public class Item
 {
+    public Cell OriginCell { get; set; }
+
     public Cell Cell { get; private set; }
 
     public Transform View { get; private set; }
@@ -98,7 +100,7 @@ public class Item
     {
         if (View)
         {
-            View.DOScale(0.1f, 0.1f).OnComplete(
+            View.DOScale(0.0f, 0.25f).OnComplete(
                 () =>
                 {
                     GameObject.Destroy(View.gameObject);

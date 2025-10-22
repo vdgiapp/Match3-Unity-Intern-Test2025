@@ -9,6 +9,8 @@ public class UIPanelGame : MonoBehaviour,IMenu
     public Text LevelConditionView;
 
     [SerializeField] private Button btnPause;
+    [SerializeField] private Button btnAutoplay;
+    [SerializeField] private Button btnAutoLose;
 
     private UIMainManager m_mngr;
 

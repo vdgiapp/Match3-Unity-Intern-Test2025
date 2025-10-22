@@ -9,15 +9,6 @@ public class Cell : MonoBehaviour
 
     public Item Item { get; private set; }
 
-    public Cell NeighbourUp { get; set; }
-
-    public Cell NeighbourRight { get; set; }
-
-    public Cell NeighbourBottom { get; set; }
-
-    public Cell NeighbourLeft { get; set; }
-
-
     public bool IsEmpty => Item == null;
 
     public void Setup(int cellX, int cellY)
@@ -25,13 +16,6 @@ public class Cell : MonoBehaviour
         this.BoardX = cellX;
         this.BoardY = cellY;
     }
-
-    public bool IsNeighbour(Cell other)
-    {
-        return BoardX == other.BoardX && Mathf.Abs(BoardY - other.BoardY) == 1 ||
-            BoardY == other.BoardY && Mathf.Abs(BoardX - other.BoardX) == 1;
-    }
-
 
     public void Free()
     {
